@@ -6,12 +6,14 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:36:30 by naali             #+#    #+#             */
-/*   Updated: 2019/02/11 15:27:02 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/12 16:57:54 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef T_STRUCT_H
 # define T_STRUCT_H
+
+# define ERROR_LEAKS -1
 
 typedef struct	s_vect
 {
@@ -41,14 +43,16 @@ typedef struct	s_angle
 
 typedef struct	s_translation
 {
-	double		t_x;
-	double		t_y;
-	double		t_z;
+	double		tx;
+	double		ty;
+	double		tz;
 	double		zoom;
 }				t_translation;
 
 typedef	struct	s_obj
 {
+	t_vertex		**map;
+	t_img			img;
 	t_angle			angle;
 	t_translation	trans;
 	t_matrice		allmat;
@@ -58,7 +62,6 @@ typedef	struct	s_obj
 	t_matrice		t_mat;
 	t_matrice		screen_mat;
 	t_matrice		center_mat;
-//	t_matrice		*f(t_matrice m1, t_matrice m2);
 }				t_obj;
 
 /*
