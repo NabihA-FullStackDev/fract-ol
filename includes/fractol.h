@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 17:07:17 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/14 21:09:43 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # define ERROR_LEAKS -2
 # define EXIT_ON_SUCCESS 0
 # define ZPIX 4
-# define WINX 1600
-# define WINY 1200
+# define WINX 800
+# define WINY 600
 
 typedef struct	s_img
 {
@@ -59,6 +59,7 @@ typedef	struct	s_obj
 	t_matrice		t_mat;
 	t_matrice		screen_mat;
 	t_matrice		center_mat;
+	void			*f;
 }				t_obj;
 
 typedef struct	s_win
@@ -85,5 +86,7 @@ void		init_mandel(t_frac *f);
 int			check_exist(t_frac *f);
 void		calc_iteration(t_frac *f);
 void		fill_map(t_obj *o, int x, int y, int color);
+
+void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img);
 
 #endif

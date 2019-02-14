@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 18:55:24 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/14 21:17:19 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@
 #include "libft/libft.h"
 
 #include <stdio.h>
+
+void	refresh_screen(t_win *w, t_obj *o, void(*f)(t_obj*, t_frac*))
+{
+	mlx_destroy_image(w->mlxp, o->img.imgp);
+	init_struct_img(w, &(o->img));
+//	init_map(win);
+	init_mat_position(o);
+	(*f)(o, &(o->fra));
+	tabvrtx_to_img(o, o->map, &(o->img));
+	mlx_clear_window(w->mlxp, w->winp);
+//		Fonction de tracer
+	mlx_put_image_to_window(w->mlxp, w->winp, o->img.imgp, 0, 0);
+}
 
 /*
 ** MOUSE KEY
@@ -50,10 +63,22 @@ int				deal_with_keyboard(int key, void *ptr)
 	t_win		*tmp;
 
 	tmp = (t_win*)ptr;
-	if (key == 53)
+	if (key == 53 || key == 65307)
 	{
 		mlx_destroy_window(tmp->mlxp, tmp->winp);
 		exit(0);
+	}
+	else if (key == 65451)
+	{
+		if ((tmp->obj->fra.zoom += 5) == 0)
+			tmp->obj->fra.zoom += 1;
+		refresh_screen(tmp, tmp->obj, tmp->obj->f);
+	}
+	else if (key == 65453)
+	{
+		if ((tmp->obj->fra.zoom -= 5) < 0)
+			tmp->obj->fra.zoom = 0;
+		refresh_screen(tmp, tmp->obj, tmp->obj->f);
 	}
 	else
 		printf("key = %d\n", key);
@@ -103,11 +128,13 @@ int				main(/* int ac, char **av */)
 	t_win		w;
 	t_obj		man;
 
+	man.f = &mandelbrot;
 	init_struct_win(&w);
 	init_init(&w, &man, &init_mandel);
 	mlx_put_image_to_window(w.mlxp, w.winp, man.img.imgp, 0, 0);
+	w.obj = &man;
 	mlx_hook(w.winp, 2, 1L<<0, deal_with_keyboard, &w);
-	mlx_mouse_hook(w.winp, deal_with_mouse, &man);
+	mlx_mouse_hook(w.winp, deal_with_mouse, &w);
 	mlx_loop(w.mlxp);
 	return (EXIT_ON_SUCCESS);
 }
