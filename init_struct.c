@@ -6,16 +6,18 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/12 17:10:13 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/14 16:08:39 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "mlx.h"
+#include "includes/t_struct.h"
 #include "includes/fractol.h"
 
 void		init_struct_win(t_win *w)
 {
-	w->m.nbl = 0;
+//	w->m.nbl = 0;
 	w->mlxp = mlx_init();
 	w->winp = mlx_new_window(w->mlxp, WINX, WINY, "Fractol");
 }
@@ -43,56 +45,56 @@ void		free_mapping(t_vertex **map, int i, int flg)
 void		init_struct_img(t_win *w, t_img *img)
 {
 	img->imgp = mlx_new_image(w->mlxp, WINX, WINY);
-	img->data = (int*)mlx_get_data_addr(img->imgp, &(img->bpp), &(img->s_l, &(img->endian)));
+	img->data = (int*)mlx_get_data_addr(img->imgp, &(img->bpp), &(img->s_l), &(img->endian));
 }
 
-static t_matrice	init_mat_position(t_obj *o)
+void		init_angle_n_trans(t_angle *a, t_trans *t)
 {
-	t_matrice	mtmp;
+	a->alpha = 0;
+	a->beta = 0;
+	a->ceta = 0;
+	t->tx = 0;
+	t->ty = 0;
+	t->tz = 0;
+	t->zoom = 500;
+}
 
+void		init_mat_position(t_obj *o)
+{
 	o->x_mat = set_x_matrice(o->angle.alpha);
 	o->y_mat = set_y_matrice(o->angle.beta);
 	o->z_mat = set_z_matrice(o->angle.ceta);
 	o->t_mat = set_t_matrice(o->trans.tx, o->trans.ty, o->trans.tz);
 	o->screen_mat = set_zoom_matrice(o->trans.zoom);
-	o->center_mat = set_t_matrice(w->m.xmax / -2,\
-								w->m.ymax / -2, 0);
-	mtmp = init_matrice();
-	mtmp = mult_matrice(w->x_mat, mtmp);
-	mtmp = mult_matrice(w->y_mat, mtmp);
-	mtmp = mult_matrice(w->z_mat, mtmp);
-	mtmp = mult_matrice(w->screen_mat, mtmp);
-	mtmp = mult_matrice(w->t_mat, mtmp);
-	return (mtmp);
+	o->center_mat = set_t_matrice(WINX / -2, WINY / -2, 0);
+	o->allmat = init_matrice();
+	o->allmat = mult_matrice(o->screen_mat, o->allmat);
+	o->allmat = mult_matrice(o->x_mat, o->allmat);
+	o->allmat = mult_matrice(o->y_mat, o->allmat);
+	o->allmat = mult_matrice(o->z_mat, o->allmat);
+	o->allmat = mult_matrice(o->t_mat, o->allmat);
 }
 
-void		init_struct_obj(t_win *w, t_obj *o)
+void		*init_struct_obj(t_obj *o/* , void (*f)(t_obj*, t_vertex**, int, int) */)
 {
 	int		i;
+/* 	int		j; */
 
 	i = 0;
 	if ((o->map = malloc(sizeof(t_vertex*) * (WINX + 1))) == NULL)
 		return (NULL);
 	while (i < WINX)
 	{
-		j = 0;
+/* 		j = 0; */
 		if ((o->map[i] = malloc(sizeof(t_vertex) * (WINY + 1))) == NULL)
 			return (NULL);
-		while (j < WINY)
-		{
-			o->map[i][j].x = i;
-			o->map[i][j].y = j;
-			o->map[i][j].z = 0;
-			o->map[i][j].color = 0;
-			j++;
-		}
-		o->map[i][WINY] = NULL;
+/* 		while (j < WINY) */
+/* 		{ */
+/* 			(*f)(o, o->map, i, j); */
+/* 			j++; */
+/* 		} */
 		i++;
 	}
 	o->map[i] = NULL;
-	init_struct_img(w, &(o->img));
-//	init_struct_angle(&(o->angle));
-//	init_struct_angle(&(o->trans));
-//	init_all_mat(o);
 	return (o);
 }
