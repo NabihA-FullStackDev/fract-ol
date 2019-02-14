@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 15:11:49 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 16:36:44 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/14 18:17:53 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void		fill_map(t_obj *o, int x, int y, int color)
 {
 	(o->map[x][y]).x = x;
 	(o->map[x][y]).y = y;
+	(o->map[x][y]).z = 0;
 	(o->map[x][y]).color = color;
 }

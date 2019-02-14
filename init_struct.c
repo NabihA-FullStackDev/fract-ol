@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 16:08:39 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/14 18:37:31 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		init_angle_n_trans(t_angle *a, t_trans *t)
 	t->tx = 0;
 	t->ty = 0;
 	t->tz = 0;
-	t->zoom = 500;
+	t->zoom = 1;
 }
 
 void		init_mat_position(t_obj *o)
@@ -66,7 +66,7 @@ void		init_mat_position(t_obj *o)
 	o->z_mat = set_z_matrice(o->angle.ceta);
 	o->t_mat = set_t_matrice(o->trans.tx, o->trans.ty, o->trans.tz);
 	o->screen_mat = set_zoom_matrice(o->trans.zoom);
-	o->center_mat = set_t_matrice(WINX / -2, WINY / -2, 0);
+	o->center_mat = set_t_matrice(0, 0, 0);
 	o->allmat = init_matrice();
 	o->allmat = mult_matrice(o->screen_mat, o->allmat);
 	o->allmat = mult_matrice(o->x_mat, o->allmat);
@@ -75,24 +75,17 @@ void		init_mat_position(t_obj *o)
 	o->allmat = mult_matrice(o->t_mat, o->allmat);
 }
 
-void		*init_struct_obj(t_obj *o/* , void (*f)(t_obj*, t_vertex**, int, int) */)
+void		*init_struct_obj(t_obj *o)
 {
 	int		i;
-/* 	int		j; */
 
 	i = 0;
 	if ((o->map = malloc(sizeof(t_vertex*) * (WINX + 1))) == NULL)
 		return (NULL);
 	while (i < WINX)
 	{
-/* 		j = 0; */
 		if ((o->map[i] = malloc(sizeof(t_vertex) * (WINY + 1))) == NULL)
 			return (NULL);
-/* 		while (j < WINY) */
-/* 		{ */
-/* 			(*f)(o, o->map, i, j); */
-/* 			j++; */
-/* 		} */
 		i++;
 	}
 	o->map[i] = NULL;
