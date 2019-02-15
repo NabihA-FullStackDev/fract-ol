@@ -6,10 +6,11 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 20:42:35 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/15 15:00:10 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "mlx.h"
 #include "includes/t_struct.h"
@@ -80,11 +81,11 @@ void		*init_struct_obj(t_obj *o)
 	int		i;
 
 	i = 0;
-	if ((o->map = malloc(sizeof(t_vertex*) * (WINX + 1))) == NULL)
+	if ((o->map = malloc(sizeof(t_vertex*) * (o->fra.xmax + 1))) == NULL)
 		return (NULL);
 	while (i < WINX)
 	{
-		if ((o->map[i] = malloc(sizeof(t_vertex) * (WINY + 1))) == NULL)
+		if ((o->map[i] = malloc(sizeof(t_vertex) * (o->fra.ymax + 1))) == NULL)
 			return (NULL);
 		i++;
 	}

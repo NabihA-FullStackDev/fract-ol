@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 21:09:43 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/15 14:47:10 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct	s_img
 
 typedef struct	s_frac
 {
+	int				xmax;
+	int				ymax;
 	double			x1;
 	double			y1;
 	double			x2;

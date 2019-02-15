@@ -6,16 +6,16 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 15:11:49 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 18:17:53 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/15 16:03:18 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+#include <stdio.h>
 #include "../includes/fractol.h"
 
 /*
 ** MANDELBROT
-*/
-/*
 ** x1 = -2.1, y1 = -1.2
 ** x2 =  0.6, y2 =  1.2
 */
@@ -39,7 +39,9 @@ void		init_mandel(t_frac *f)
 	f->x2 = 0.6;
 	f->y2 = 1.2;
 	f->zoom = 500;
-	f->itmax = 100;
+	f->itmax = 250;
+	f->xmax = fabs(((f->x2 - f->x1) * f->zoom));
+	f->ymax = fabs(((f->y2 - f->y1) * f->zoom));
 }
 
 int			check_exist(t_frac *f)
@@ -55,8 +57,6 @@ void		calc_iteration(t_frac *f)
 	f->zr = (f->zr * f->zr) - (f->zi * f->zi) + f->cr;
 	f->zi = (2 * f->tmp * f->zi) + f->ci;
 }
-
-#include <stdio.h>
 
 void		fill_map(t_obj *o, int x, int y, int color)
 {
