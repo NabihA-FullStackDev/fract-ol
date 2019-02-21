@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/02/15 15:41:00 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/21 01:02:56 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 
 #include <stdio.h>
 
-void	refresh_screen(t_win *w, t_obj *o, void(*f)(t_obj*, t_frac*))
+void	refresh_screen(t_win *w, t_obj *o)
 {
 	mlx_destroy_image(w->mlxp, o->img.imgp);
 	init_struct_img(w, &(o->img));
 	init_mat_position(o);
 //	Fonction de tracer BEGIN
-	(*f)(o, &(o->fra));
-	tabvrtx_to_img(o, o->map, &(o->img));
+	o->f_draw(o, &(o->fra));
 //	Fonction de tracer END
 	mlx_clear_window(w->mlxp, w->winp);
 	mlx_put_image_to_window(w->mlxp, w->winp, o->img.imgp, 0, 0);
@@ -63,86 +62,82 @@ int				deal_with_keyboard(int key, void *ptr)
 	t_win		*tmp;
 
 	tmp = (t_win*)ptr;
-	if (key == 53 || key == 65307)
+	if (key == 53)
 	{
 		mlx_destroy_window(tmp->mlxp, tmp->winp);
+		free_mapping(tmp->obj->map, WINX, 0);
 		exit(0);
 	}
 	else if (key == 69)
 	{
 		if ((tmp->obj->fra.zoom += 5) == 0)
 			tmp->obj->fra.zoom += 1;
-		refresh_screen(tmp, tmp->obj, tmp->obj->f);
+		refresh_screen(tmp, tmp->obj);
 	}
 	else if (key == 78)
 	{
 		if ((tmp->obj->fra.zoom -= 5) < 0)
 			tmp->obj->fra.zoom = 0;
-		refresh_screen(tmp, tmp->obj, tmp->obj->f);
+		refresh_screen(tmp, tmp->obj);
 	}
 	else if (key == 86)
 	{
 		tmp->obj->angle.beta -= 5;
-		refresh_screen(tmp, tmp->obj, tmp->obj->f);
+		refresh_screen(tmp, tmp->obj);
 	}
 	else if (key == 88)
 	{
 		tmp->obj->angle.beta += 5;
-		refresh_screen(tmp, tmp->obj, tmp->obj->f);
+		refresh_screen(tmp, tmp->obj);
 	}
 	else
 		printf("key = %d\n", key);
 	return (0);
 }
 
-void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img)
-{
-	int			i;
-	int			j;
-	t_vertex	tmp;
-
-	i = 0;
-	while (i < WINX)
-	{
-		j = 0;
-		while (j < WINY)
-		{
-			tmp = vtab[i][j];
-			/*application de matrice sur tmp*/
-			tmp = mult_vtex_by_mat(o->allmat, tmp);
-			tmp = mult_vtex_by_mat(o->center_mat, tmp);
-			/*application de matrice sur tmp*/
-			color_to_pix(img, tmp.x, tmp.y, tmp.color);
-			j++;
-		}
-		i++;
-	}
-}
-
 /*
 ** initialisation complete d'un obj
 */
-void			init_init(t_win *w, t_obj *o, void(*init)(t_frac*))
+void			init_init(t_win *w, t_obj *o)
 {
-	(*init)(&(o->fra));
+	init_struct_win(w);
+	o->f_init(&(o->fra));
 	init_struct_img(w, &(o->img));
-	init_struct_obj(o);
 	init_angle_n_trans(&(o->angle), &(o->trans));
 	init_mat_position(o);
-	mandelbrot(o, &(o->fra));
-	tabvrtx_to_img(o, o->map, &(o->img));
+	o->f_draw(o, &(o->fra));//mandelbrot(o, &(o->fra));
 }
 
-int				main(/* int ac, char **av */)
+int				main(int ac, char **av)
 {
 	t_win		w;
-	t_obj		man;
+	t_obj		obj;
 
-	man.f = &mandelbrot;
-	init_struct_win(&w);
-	init_init(&w, &man, &init_mandel);
-	mlx_put_image_to_window(w.mlxp, w.winp, man.img.imgp, 0, 0);
-	w.obj = &man;
+	if (ac != 2)
+		return (0);
+	if (ft_atoi(av[1]) == 1)
+	{
+		obj.f_init = &init_mandel;
+		obj.f_draw = &mandelbrot;
+	}
+	if (ft_atoi(av[1]) == 2)
+	{
+		obj.f_init = &init_julia;
+		obj.f_draw = &julia;
+	}
+	if (ft_atoi(av[1]) == 3)
+	{
+		obj.f_init = &init_buddha;
+		obj.f_draw = &buddhabrot;
+	}
+	else
+	{
+		ft_putstr("./fractol [1=mandelbrot], [2=Julia], [3=other]\n");
+		return (0);
+	}
+	init_init(&w, &obj);
+	mlx_put_image_to_window(w.mlxp, w.winp, obj.img.imgp, 0, 0);
+	w.obj = &obj;
 	mlx_hook(w.winp, 2, 1L<<0, deal_with_keyboard, &w);
 	mlx_mouse_hook(w.winp, deal_with_mouse, &w);
 	mlx_loop(w.mlxp);

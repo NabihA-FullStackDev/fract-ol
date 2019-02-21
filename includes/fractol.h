@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/15 14:47:10 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/21 01:49:00 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_frac
 	double			x2;
 	double			y2;
 	double			zoom;
+	unsigned int	itmin;
 	unsigned int	itmax;
 	double			cr;
 	double			ci;
@@ -61,7 +62,8 @@ typedef	struct	s_obj
 	t_matrice		t_mat;
 	t_matrice		screen_mat;
 	t_matrice		center_mat;
-	void			*f;
+	void			(*f_init)(t_frac*);
+	void			(*f_draw)(struct s_obj*, t_frac*);
 }				t_obj;
 
 typedef struct	s_win
@@ -72,8 +74,9 @@ typedef struct	s_win
 	t_obj		*obj;
 }				t_win;
 
-void			mandelbrot(t_obj *o, t_frac *f);
+//void			mandelbrot(t_obj *o, t_frac *f);
 unsigned int	find_color(int i, int max, int x, int y);
+unsigned int	find_color_bud(int i);
 void			color_to_pix(t_img *i, int x, int y, int color);
 void			*init_struct_obj(t_obj *o/* , void (*f)(t_obj*, t_vertex**, int, int) */);
 void			init_struct_win(t_win *w);
@@ -82,13 +85,20 @@ void			free_mapping(t_vertex **map, int i, int flg);
 void			init_angle_n_trans(t_angle *a, t_trans *t);
 void			init_mat_position(t_obj *o);
 
+void		calc_crcizrzi(double x, double y, t_frac *f);
+void		calc_crcizrzi_bud(double x, double y, t_frac *f);
 double		calc_cr(int x, t_frac *f);
 double		calc_ci(int y, t_frac *f);
 void		init_mandel(t_frac *f);
+void		init_julia(t_frac *f);
+void		init_buddha(t_frac *f);
 int			check_exist(t_frac *f);
 void		calc_iteration(t_frac *f);
 void		fill_map(t_obj *o, int x, int y, int color);
 
 void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img);
+void			mandelbrot(t_obj *o, t_frac *f);//a supprimer certainement
+void			julia(t_obj *o, t_frac *f);
+void			buddhabrot(t_obj *o, t_frac *f);
 
 #endif

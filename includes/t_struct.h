@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:36:30 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 15:40:58 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/19 11:00:39 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ typedef struct	s_vect
 
 typedef struct	s_vertex
 {
-	int		x;
-	int		y;
-	int		z;
+	double		x;
+	double		y;
+	double		z;
 	int		color;
 }				t_vertex;
 

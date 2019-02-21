@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:06:18 by naali             #+#    #+#             */
-/*   Updated: 2019/02/14 18:37:53 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/21 02:18:45 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ unsigned int	find_color(int i, int max, int x, int y)
 	else if (i >= max / 13 && i < max)
 		return (0x0093C5);
 	else if (i == max && x > 0)
+		return (0xFFFFFF);
+	return (0);
+}
+
+unsigned int	find_color_bud(int i)
+{
+/* 	if (i > 10 && i < 100) */
+/* 		return (0xFFe6b3); */
+/* 	else if (i >= 100 && i < 500) */
+/* 		return (0xFF66FF); */
+/* 	else  */if (i >= 9999 && i < 249999)
+		return (0xE600E6);
+	else if (i >= 249999 && i < 499999)
+		return (0x0066FF);
+	else if (i >= 499999)
 		return (0xFFFFFF);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/15 15:00:10 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/21 02:05:49 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 void		init_struct_win(t_win *w)
 {
-//	w->m.nbl = 0;
 	w->mlxp = mlx_init();
 	w->winp = mlx_new_window(w->mlxp, WINX, WINY, "Fractol");
 }
@@ -67,28 +66,11 @@ void		init_mat_position(t_obj *o)
 	o->z_mat = set_z_matrice(o->angle.ceta);
 	o->t_mat = set_t_matrice(o->trans.tx, o->trans.ty, o->trans.tz);
 	o->screen_mat = set_zoom_matrice(o->trans.zoom);
-	o->center_mat = set_t_matrice(0, 0, 0);
+	o->center_mat = set_t_matrice(WINX/-2, WINY/-2, 0);
 	o->allmat = init_matrice();
 	o->allmat = mult_matrice(o->screen_mat, o->allmat);
 	o->allmat = mult_matrice(o->x_mat, o->allmat);
 	o->allmat = mult_matrice(o->y_mat, o->allmat);
 	o->allmat = mult_matrice(o->z_mat, o->allmat);
 	o->allmat = mult_matrice(o->t_mat, o->allmat);
-}
-
-void		*init_struct_obj(t_obj *o)
-{
-	int		i;
-
-	i = 0;
-	if ((o->map = malloc(sizeof(t_vertex*) * (o->fra.xmax + 1))) == NULL)
-		return (NULL);
-	while (i < WINX)
-	{
-		if ((o->map[i] = malloc(sizeof(t_vertex) * (o->fra.ymax + 1))) == NULL)
-			return (NULL);
-		i++;
-	}
-	o->map[i] = NULL;
-	return (o);
 }

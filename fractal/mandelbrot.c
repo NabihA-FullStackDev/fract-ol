@@ -6,48 +6,44 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:55:42 by naali             #+#    #+#             */
-/*   Updated: 2019/02/15 16:29:12 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/21 00:29:03 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <unistd.h>
 #include "mlx.h"
 #include "../includes/t_struct.h"
 #include "../includes/fractol.h"
 
-/*
-** Transformation des coordonnees en vertex
-** Modification des conditions d'affichage.
-*/
-
+/* ---> SAUVEGARDE MANDELBROT OK <--- */
 void			mandelbrot(t_obj *o, t_frac *f)
 {
 	t_vertex		tmp;
 	t_vertex		tmpc;
-//	int				x;
-//	int				y;
 	unsigned int	i;
 
 	tmp.x = 0;
-	while (tmp.x < WINX)// <-- retrait de x < f->xmax
+	tmpc.x = 0;
+	while (tmpc.x < WINX)
 	{
 		tmp.y = 0;
+		tmpc = mult_vtex_by_mat(o->allmat, tmp);
 		f->cr = calc_cr(tmp.x, f);
-		while (tmp.y < WINY)// <-- retrait de y < f->ymax
+		while (tmpc.y < WINY)
 		{
 			i = 0;
-			tmpc = mult_vtex_by_mat(o->allmat, tmp);// <--- application de matrice sur le vertex.
-			tmpc.z = 0;
-			f->ci = calc_ci(tmpc.y, f);
+			f->ci = calc_ci(tmp.y, f);
 			while (check_exist(f) && i < f->itmax)
 			{
 				calc_iteration(f);
 				i++;
 			}
-			if (tmpc.x < f->xmax && tmpc.x < WINX && \
-				tmpc.y < f->ymax && tmpc.y < WINY)// <-- a modifier
-				fill_map(o, tmpc.x, tmpc.y, find_color(i, f->itmax, tmpc.x, tmpc.y));
+			tmpc = mult_vtex_by_mat(o->allmat, tmp);
+			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax, tmpc.x, tmpc.y));
 			tmp.y++;
 		}
 		tmp.x++;
 	}
 }
+/* ---> SAUVEGARDE MANDELBROT OK <--- */
