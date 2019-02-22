@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/02/21 01:02:56 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 04:11:29 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,15 @@ int				main(int ac, char **av)
 		obj.f_init = &init_mandel;
 		obj.f_draw = &mandelbrot;
 	}
-	if (ft_atoi(av[1]) == 2)
+	else if (ft_atoi(av[1]) == 2)
 	{
 		obj.f_init = &init_julia;
 		obj.f_draw = &julia;
 	}
-	if (ft_atoi(av[1]) == 3)
+	else if (ft_atoi(av[1]) == 3)
 	{
-		obj.f_init = &init_buddha;
-		obj.f_draw = &buddhabrot;
+		obj.f_init = &init_mandel;
+		obj.f_draw = &multibrot;
 	}
 	else
 	{

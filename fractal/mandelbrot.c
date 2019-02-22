@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:55:42 by naali             #+#    #+#             */
-/*   Updated: 2019/02/21 00:29:03 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 04:13:45 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../includes/t_struct.h"
 #include "../includes/fractol.h"
 
-/* ---> SAUVEGARDE MANDELBROT OK <--- */
 void			mandelbrot(t_obj *o, t_frac *f)
 {
 	t_vertex		tmp;
@@ -46,4 +45,3 @@ void			mandelbrot(t_obj *o, t_frac *f)
 		tmp.x++;
 	}
 }
-/* ---> SAUVEGARDE MANDELBROT OK <--- */

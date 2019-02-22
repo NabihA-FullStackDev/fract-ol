@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 15:11:49 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 04:08:22 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 03:17:28 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +42,7 @@ void		init_mandel(t_frac *f)
 	f->cr = f->x1;
 	f->ci = f->y1;
 	f->zoom = 250;
-	f->itmax = 100;
+	f->itmax = 150;
 	f->xmax = fabs(((f->x2 - f->x1) * f->zoom));
 	f->ymax = fabs(((f->y2 - f->y1) * f->zoom));
 }
@@ -55,7 +56,7 @@ int			check_exist(t_frac *f)
 
 int			check_exist_test(t_frac *f)
 {
-	if ((pow(f->zr, 3) + pow(f->zi, 3)) < 4)
+	if ((pow(f->zr, 3) + pow(f->zi, 3)) < 8)
 		return (1);
 	return (0);
 }
@@ -67,11 +68,9 @@ void		calc_iteration(t_frac *f)
 	f->zi = (2 * f->tmp * f->zi) + f->ci;
 }
 
-void		calc_iteration_multibrot(t_frac *f, double p)
+void		calc_iteration_test(t_frac *f1, t_frac *f2)
 {
-	f->tmp = f->zr;
-	f->zr = pow((f->zr * f->zr + f->zi * f->zi), p / 2) * \
-		cos(p * atan2(f->zi, f->zr)) + f->cr;
-	f->zi = pow((f->tmp * f->tmp + f->zi * f->zi), p / 2) * \
-		sin(p * atan2(f->zi, f->tmp)) + f->ci;
+	f1->tmp = f1->zr;
+	f1->zr = (f1->zr * f2->zr) - (f1->zi * f2->zi) + (f1->cr + f2->cr);
+	f1->zi = (f->tmp + f2->zr) * (f1->zi + f2->zi) + (f1->ci + f2->ci);
 }

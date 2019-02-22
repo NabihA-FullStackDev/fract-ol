@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   buddha.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 14:55:42 by naali             #+#    #+#             */
-/*   Updated: 2019/02/21 02:57:33 by naali            ###   ########.fr       */
+/*   Created: 2019/02/22 04:09:08 by naali             #+#    #+#             */
+/*   Updated: 2019/02/22 04:14:01 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 #include "../includes/t_struct.h"
 #include "../includes/fractol.h"
 
-void		calc_iteration_test(t_frac *f);
-int			check_exist_test(t_frac *f);
-
-void			buddhabrot(t_obj *o, t_frac *f)
+void			multibrot(t_obj *o, t_frac *f)
 {
 	t_vertex		tmp;
 	t_vertex		tmpc;
@@ -30,18 +27,18 @@ void			buddhabrot(t_obj *o, t_frac *f)
 	{
 		tmp.y = 0;
 		tmpc = mult_vtex_by_mat(o->allmat, tmp);
+		f->cr = calc_cr(tmp.x, f);
 		while (tmpc.y < WINY)
 		{
 			i = 0;
-			calc_crcizrzi_bud(tmp.x, tmp.y, f);
-			while (check_exist_test(f) == 1 && i < f->itmax)
+			f->ci = calc_ci(tmp.y, f);
+			while (check_exist(f) && i < f->itmax)
 			{
-				calc_iteration_test(f);
+				calc_iteration_multibrot(f, 10);
 				i++;
 			}
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);
-			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i , f->itmax, tmpc.x, tmpc.y));
-/* 			color_to_pix(&(o->img), tmpc.x + (f->zr - f->x1) * f->zoom, tmpc.y + (f->zi - f->y1) * f->zoom, find_color_bud(i)); */
+			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax, tmpc.x, tmpc.y));
 			tmp.y++;
 		}
 		tmp.x++;

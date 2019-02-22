@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/21 01:49:00 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 04:14:27 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ void		init_julia(t_frac *f);
 void		init_buddha(t_frac *f);
 int			check_exist(t_frac *f);
 void		calc_iteration(t_frac *f);
+void		calc_iteration_multibrot(t_frac *f1, double pow);
 void		fill_map(t_obj *o, int x, int y, int color);
 
 void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img);
 void			mandelbrot(t_obj *o, t_frac *f);//a supprimer certainement
 void			julia(t_obj *o, t_frac *f);
-void			buddhabrot(t_obj *o, t_frac *f);
+void			multibrot(t_obj *o, t_frac *f);
 
 #endif
