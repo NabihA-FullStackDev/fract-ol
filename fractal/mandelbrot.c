@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 14:55:42 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 04:13:45 by naali            ###   ########.fr       */
+/*   Created: 2019/02/22 04:57:15 by naali             #+#    #+#             */
+/*   Updated: 2019/02/22 05:17:12 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			mandelbrot(t_obj *o, t_frac *f)
 				i++;
 			}
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);
-			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax, tmpc.x, tmpc.y));
+			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax));
 			tmp.y++;
 		}
 		tmp.x++;

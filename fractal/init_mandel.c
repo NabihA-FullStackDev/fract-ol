@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 15:11:49 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 04:08:22 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 05:00:24 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		init_mandel(t_frac *f)
 
 int			check_exist(t_frac *f)
 {
-	if ((f->zr * f->zr + f->zi * f->zi) < 4)
+	if (fabs(f->zr * f->zr + f->zi * f->zi) < 4)
 		return (1);
 	return (0);
 }

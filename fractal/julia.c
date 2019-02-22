@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 00:28:45 by naali             #+#    #+#             */
-/*   Updated: 2019/02/21 00:41:10 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 05:16:48 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			julia(t_obj *o, t_frac *f)
 				i++;
 			}
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);
-			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax, tmpc.x, tmpc.y));
+			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax));
 			tmp.y++;
 		}
 		tmp.x++;

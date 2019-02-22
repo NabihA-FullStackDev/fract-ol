@@ -6,18 +6,17 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 04:11:29 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 05:21:40 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include "mlx.h"
 #include "includes/fractol.h"
 #include "includes/t_struct.h"
 #include "libft/libft.h"
-
-#include <stdio.h>
 
 void	refresh_screen(t_win *w, t_obj *o)
 {
@@ -62,19 +61,19 @@ int				deal_with_keyboard(int key, void *ptr)
 	t_win		*tmp;
 
 	tmp = (t_win*)ptr;
-	if (key == 53)
+	if (key == 53 || key == 65307)
 	{
+		mlx_destroy_image(tmp->mlxp, tmp->obj->img.imgp);
 		mlx_destroy_window(tmp->mlxp, tmp->winp);
-		free_mapping(tmp->obj->map, WINX, 0);
 		exit(0);
 	}
-	else if (key == 69)
+	else if (key == 69 || key == 65451)
 	{
 		if ((tmp->obj->fra.zoom += 5) == 0)
 			tmp->obj->fra.zoom += 1;
 		refresh_screen(tmp, tmp->obj);
 	}
-	else if (key == 78)
+	else if (key == 78 || key == 65453)
 	{
 		if ((tmp->obj->fra.zoom -= 5) < 0)
 			tmp->obj->fra.zoom = 0;

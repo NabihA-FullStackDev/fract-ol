@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 04:14:27 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 05:15:51 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ typedef struct	s_win
 	t_obj		*obj;
 }				t_win;
 
-//void			mandelbrot(t_obj *o, t_frac *f);
-unsigned int	find_color(int i, int max, int x, int y);
+unsigned int	find_color(int i, int max);
 unsigned int	find_color_bud(int i);
 void			color_to_pix(t_img *i, int x, int y, int color);
 void			*init_struct_obj(t_obj *o/* , void (*f)(t_obj*, t_vertex**, int, int) */);
@@ -97,7 +96,7 @@ void		calc_iteration(t_frac *f);
 void		calc_iteration_multibrot(t_frac *f1, double pow);
 void		fill_map(t_obj *o, int x, int y, int color);
 
-void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img);
+//void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img);
 void			mandelbrot(t_obj *o, t_frac *f);//a supprimer certainement
 void			julia(t_obj *o, t_frac *f);
 void			multibrot(t_obj *o, t_frac *f);

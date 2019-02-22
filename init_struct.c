@@ -6,11 +6,10 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/21 02:05:49 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/22 05:13:52 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "mlx.h"
 #include "includes/t_struct.h"

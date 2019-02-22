@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buddha.c                                           :+:      :+:    :+:   */
+/*   multibrot.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/22 04:09:08 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 04:14:01 by naali            ###   ########.fr       */
+/*   Created: 2019/02/22 04:56:46 by naali             #+#    #+#             */
+/*   Updated: 2019/02/22 05:17:30 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void			multibrot(t_obj *o, t_frac *f)
 			f->ci = calc_ci(tmp.y, f);
 			while (check_exist(f) && i < f->itmax)
 			{
-				calc_iteration_multibrot(f, 10);
+				calc_iteration_multibrot(f, 11);
 				i++;
 			}
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);
-			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax, tmpc.x, tmpc.y));
+			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax));
 			tmp.y++;
 		}
 		tmp.x++;
