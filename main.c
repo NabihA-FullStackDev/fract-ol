@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/02/25 18:42:30 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/25 22:25:08 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	refresh_screen(t_win *w, t_obj *o)
 int				deal_with_mouse(int key, int x, int y, void *ptr)
 {
 	t_win		*tmp;
+	t_frac		*f;
 
 	tmp = (t_win*)ptr;
+	f = &(tmp->obj->fra);
 	if (key == 1)
 		printf("%d = Clic gauche coordonnes [%d, %d]\n", key, x, y);
 	else if (key == 2)
@@ -49,25 +51,49 @@ int				deal_with_mouse(int key, int x, int y, void *ptr)
 		printf("%d = Clic molette coordonnes [%d, %d]\n", key, x, y);
 	else if (key == 4)
 	{
-		if ((tmp->obj->fra.zoom -= 5) <= 0)
-			tmp->obj->fra.zoom = 1;
-		tmp->obj->fra.x1 -= (x / tmp->obj->fra.zoom);
-		tmp->obj->fra.y1 -= (y / tmp->obj->fra.zoom);
-		tmp->obj->fra.x2 += (x / tmp->obj->fra.zoom);
-		tmp->obj->fra.y2 += (y / tmp->obj->fra.zoom);
-	refresh_screen(tmp, tmp->obj);
-		printf("%d = Out coordonnes [%d, %d]\n", key, x, y);
+		if ((tmp->obj->fra.zoom -= 2) == 0)
+			tmp->obj->fra.zoom -= 0.01;
+		if (x < WINX / 2 && tmp->obj->fra.x2 > tmp->obj->fra.x1)
+			tmp->obj->fra.x2 += 0.05;
+		else if (x > WINX / 2 && tmp->obj->fra.x1 < tmp->obj->fra.x2)
+			tmp->obj->fra.x1 -= 0.05;
+		if (y < WINY / 2 && tmp->obj->fra.y2 > tmp->obj->fra.y1)
+			tmp->obj->fra.y2 += 0.05;
+		else if (y > WINY / 2 && tmp->obj->fra.y1 < tmp->obj->fra.y2)
+			tmp->obj->fra.y1 -= 0.05;
+		refresh_screen(tmp, tmp->obj);
+		printf("%d = In coordonnes [%d, %d]\n", key, x, y);
 	}
 	else if (key == 5)
 	{
-		if ((tmp->obj->fra.zoom += 5) == 0)
-			tmp->obj->fra.zoom += 1;
-		tmp->obj->fra.x1 += (double)(x / WINX) + fabs(tmp->obj->fra.x1);
-		tmp->obj->fra.y1 += (double)(y / WINY) + fabs(tmp->obj->fra.y1);
-		tmp->obj->fra.x2 -= (double)(x / WINX) - fabs(tmp->obj->fra.x2);
-		tmp->obj->fra.y2 -= (double)(y / WINY) - fabs(tmp->obj->fra.y2);
-//		printf(tmp->obj->fra.x1);//modif
-	refresh_screen(tmp, tmp->obj);
+/* 		if ((tmp->obj->fra.zoom += 20) <= 0) */
+/* 			tmp->obj->fra.zoom = 1; */
+		if (x < WINX / 2)
+		{
+			tmp->obj->fra.zoom += 20;
+			tmp->obj->fra.x2 -= ((x > WINX / 4) ?  0.05 : 0.08);
+			tmp->obj->fra.x1 += ((x > WINX / 4) ?  0.01 : 0);
+			if (fabs(f->x2 - f->x1) * f->zoom < WINX)
+			{
+				tmp->obj->fra.x2 += ((x > WINX / 4) ?  0.05 : 0.08);
+				tmp->obj->fra.x1 -= ((x > WINX / 4) ?  0.01 : 0);
+			}
+		}
+		else
+		{
+			tmp->obj->fra.zoom += 20;
+			tmp->obj->fra.x2 -= ((x < 3 * (WINX / 4)) ?  0.01 : 0);
+			tmp->obj->fra.x1 += ((x < 3 * (WINX / 4)) ?  0.05 : 0.08);
+		}
+/* 		if (tmp->obj->fra.x1 < -2.1) */
+/* 			tmp->obj->fra.x1 = -2.1; */
+/* 		if (y < WINY / 2) */
+/* 			tmp->obj->fra.y1 += ((y > WINY / 4) ? 10 : 20) / tmp->obj->fra.zoom; */
+/* 		else */
+/* 			tmp->obj->fra.y1 -= ((y < 3 * (WINY / 4)) ?  10 : 20) / tmp->obj->fra.zoom; */
+/* 		if (tmp->obj->fra.y1 < -1.2) */
+/* 			tmp->obj->fra.y1 = -1.2; */
+		refresh_screen(tmp, tmp->obj);
 		printf("%d = In coordonnes [%d, %d]\n", key, x, y);
 	}
 	else
@@ -88,24 +114,13 @@ int				deal_with_keyboard(int key, void *ptr)
 	}
 	else if (key == 69 || key == 65451)
 	{
-		if ((tmp->obj->fra.zoom += 5) == 0)
-			tmp->obj->fra.zoom += 1;
-//		refresh_screen(tmp, tmp->obj);
+		if ((tmp->obj->fra.itmax += 50) > 10000)
+			tmp->obj->fra.itmax = 10000;
 	}
 	else if (key == 78 || key == 65453)
 	{
-		if ((tmp->obj->fra.zoom -= 5) < 0)
-			tmp->obj->fra.zoom = 0;
-//		refresh_screen(tmp, tmp->obj);
-	}
-	else if (key == 86 || key == 65432)
-	{
-		tmp->obj->angle.beta -= 5;
-//		refresh_screen(tmp, tmp->obj);
-	}
-	else if (key == 88 || key == 65430)
-	{
-		tmp->obj->angle.beta += 5;
+		if ((tmp->obj->fra.itmax -= 50) < 50)
+			tmp->obj->fra.itmax = 50;
 	}
 	else
 		printf("key = %d\n", key);

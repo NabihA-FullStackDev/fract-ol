@@ -6,12 +6,13 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 04:57:15 by naali             #+#    #+#             */
-/*   Updated: 2019/02/23 19:19:26 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/25 22:09:21 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+#include <math.h>
 #include "mlx.h"
 #include "../includes/t_struct.h"
 #include "../includes/fractol.h"
@@ -24,12 +25,14 @@ void			mandelbrot(t_obj *o, t_frac *f)
 
 	tmp.x = 0;
 	tmpc.x = 0;
-	while (tmpc.x < WINX)
+	f->xmax = fabs(((f->x2 - f->x1) * f->zoom));
+	f->ymax = fabs(((f->y2 - f->y1) * f->zoom));
+	while (tmp.x < WINX && tmpc.x < f->xmax)
 	{
 		tmp.y = 0;
 		tmpc = mult_vtex_by_mat(o->allmat, tmp);
 		f->cr = calc_cr(tmp.x, f);
-		while (tmpc.y < WINY)
+		while (tmp.y < WINY && tmpc.y < f->ymax)
 		{
 			i = 0;
 			f->ci = calc_ci(tmp.y, f);
