@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 05:13:52 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/23 20:32:31 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void		init_mat_position(t_obj *o)
 	o->z_mat = set_z_matrice(o->angle.ceta);
 	o->t_mat = set_t_matrice(o->trans.tx, o->trans.ty, o->trans.tz);
 	o->screen_mat = set_zoom_matrice(o->trans.zoom);
-	o->center_mat = set_t_matrice(WINX/-2, WINY/-2, 0);
+//	o->center_mat = set_t_matrice((WINX / -2), (WINY / -2), 0);
 	o->allmat = init_matrice();
-	o->allmat = mult_matrice(o->screen_mat, o->allmat);
+//	o->allmat = mult_matrice(o->screen_mat, o->allmat);
 	o->allmat = mult_matrice(o->x_mat, o->allmat);
 	o->allmat = mult_matrice(o->y_mat, o->allmat);
 	o->allmat = mult_matrice(o->z_mat, o->allmat);

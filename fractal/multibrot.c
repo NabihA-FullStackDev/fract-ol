@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 04:56:46 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 05:17:30 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/25 18:42:06 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			multibrot(t_obj *o, t_frac *f)
 			f->ci = calc_ci(tmp.y, f);
 			while (check_exist(f) && i < f->itmax)
 			{
-				calc_iteration_multibrot(f, 11);
+				calc_iteration_multibrot(f, 4);
 				i++;
 			}
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);

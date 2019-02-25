@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 04:57:15 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 05:17:12 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/23 19:19:26 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			mandelbrot(t_obj *o, t_frac *f)
 				calc_iteration(f);
 				i++;
 			}
+//			tmpc = mult_vtex_by_mat(o->center_mat, tmp);
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);
 			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f->itmax));
 			tmp.y++;
