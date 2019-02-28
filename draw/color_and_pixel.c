@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:06:18 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 05:14:42 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/28 02:24:21 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 unsigned int	find_color(int i, int max)
 {
 	if (i == max)
-		return (0x0);
-	else if (i % 11 == 0 && i > max/50)
-		return (0xB3FFFF);
-	else if (i % 7 == 0 && i > max/50)
+		return (0x042);
+	else if (i % 11 == 0 && i > max / 50)
+		return (0x80FFFF);
+	else if (i % 7 == 0 && i > max / 50)
 		return (0x1AFFFF);
-	else if (i % 5 == 0 && i > max/50)
+	else if (i % 5 == 0 && i > max / 50)
 		return (0x00B3B3);
-	else if (i % 3 == 0 && i > max/50)
+	else if (i % 3 == 0 && i > max / 50)
 		return (0x0093C5);
 	return (0);
 }

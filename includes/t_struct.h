@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 15:36:30 by naali             #+#    #+#             */
-/*   Updated: 2019/02/19 11:00:39 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/28 04:02:31 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct	s_trans
 	double		tx;
 	double		ty;
 	double		tz;
+	double		cx;
+	double		cy;
 	double		zoom;
 }				t_trans;
 

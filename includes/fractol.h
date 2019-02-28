@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/22 05:15:51 by naali            ###   ########.fr       */
+/*   Updated: 2019/02/28 05:02:14 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef	struct	s_obj
 	t_matrice		center_mat;
 	void			(*f_init)(t_frac*);
 	void			(*f_draw)(struct s_obj*, t_frac*);
+	int				mult;
 }				t_obj;
 
 typedef struct	s_win
@@ -72,6 +73,7 @@ typedef struct	s_win
 	void		*winp;
 	t_img		simg;
 	t_obj		*obj;
+	char		*info;
 }				t_win;
 
 unsigned int	find_color(int i, int max);
