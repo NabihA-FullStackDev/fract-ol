@@ -6,7 +6,7 @@
 #    By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 11:46:21 by jchardin          #+#    #+#              #
-#    Updated: 2019/04/11 16:04:46 by naali            ###   ########.fr        #
+#    Updated: 2019/04/12 13:47:19 by naali            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ $(OBJ_DIR)/%.o:	%.c
 				@$(CC) $(CFLAGS) -o $@ -c $^ $(IFLAGS)
 				@echo -n " Done                    \r\033[0m"
 
-.PHONY: 		all clean fclean fclnsdl re resdl clearscreen
+.PHONY: 		all libft clean fclean re
 
 all:			clearscreen $(NAME)
 

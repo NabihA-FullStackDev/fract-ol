@@ -6,7 +6,7 @@
 #    By: naali <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 11:18:25 by naali             #+#    #+#              #
-#    Updated: 2019/04/11 15:17:31 by naali            ###   ########.fr        #
+#    Updated: 2019/04/12 14:21:09 by naali            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -36,26 +36,34 @@ SRC			=	ft_atoi.c			ft_bzero.c			ft_isalnum.c		ft_isalpha.c		ft_isascii.c	\
 				ft_lstadd.c			ft_lstiter.c		ft_lstmap.c			ft_lstlast.c		ft_lstfind.c	\
 				ft_lstsize.c		ft_lstfindsize.c	get_next_line.c
 
-SRCSDIR		=	.
-
 OBJ			=	$(SRC:.c=.o)
 
-%.o			:	$(SRCSDIR)/%.c
+OBJ_DIR		=	./objs
+
+OBJS		=	$(addprefix $(OBJ_DIR)/, $(OBJ))
+
+vpath %.c ./:./srcs:./srcs/libft
+
+$(OBJ_DIR)/%.o:	%.c
+				@mkdir $(OBJ_DIR) 2> /dev/null || true
 				@echo -n "\033[0;32mCompiling $< ...\c"
 				@$(CC) -o $@ -c $< $(CFLAGS) $(IFLAGS)
 				@echo -n " Done                 \r\033[0m"
 
+.PHONY		:	all clean fclean re
+
 all			:	$(NAME)
 
-$(NAME)		:	$(OBJ)
+$(NAME)		:	$(OBJS)
 				@echo -n "\033[0;32mCreation de la lib: \033[0m\c"
-				@$(AR) $(ARFLAGS) $(NAME) $(OBJ)
+				@$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 				@echo "libft.a       "
 
 clean		:
-				@/bin/rm -rf $(OBJ)
+				@rm -rf $(OBJS)
+				@rm -rf $(OBJ_DIR)
 
 fclean		:	clean
-				@/bin/rm -rf $(NAME)
+				@rm -rf $(NAME)
 
 re			:	fclean all
