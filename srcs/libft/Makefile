@@ -6,7 +6,7 @@
 #    By: naali <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 11:18:25 by naali             #+#    #+#              #
-#    Updated: 2018/12/05 11:37:21 by naali            ###   ########.fr        #
+#    Updated: 2019/04/11 15:17:31 by naali            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,9 +18,8 @@ ARFLAGS		=	rcs
 
 CC			=	gcc
 
-LIBPATH		=
+IFLAGS		=	-I./
 
-CFLAGS		+= -I ./
 CFLAGS		+= -Wall -Wextra -Werror
 
 SRC			=	ft_atoi.c			ft_bzero.c			ft_isalnum.c		ft_isalpha.c		ft_isascii.c	\
@@ -41,18 +40,22 @@ SRCSDIR		=	.
 
 OBJ			=	$(SRC:.c=.o)
 
+%.o			:	$(SRCSDIR)/%.c
+				@echo -n "\033[0;32mCompiling $< ...\c"
+				@$(CC) -o $@ -c $< $(CFLAGS) $(IFLAGS)
+				@echo -n " Done                 \r\033[0m"
+
 all			:	$(NAME)
 
-$(NAME)		:	$(OBJ) $(LIBPATH)libft.h $(LIBPATH)get_next_line.h
-				$(AR) $(ARFLAGS) $(NAME) $(OBJ)
-
-%.o			:	$(SRCSDIR)/%.c
-				$(CC) -o $@ -c $< $(CFLAGS)
+$(NAME)		:	$(OBJ)
+				@echo -n "\033[0;32mCreation de la lib: \033[0m\c"
+				@$(AR) $(ARFLAGS) $(NAME) $(OBJ)
+				@echo "libft.a       "
 
 clean		:
-				/bin/rm -rf $(OBJ)
+				@/bin/rm -rf $(OBJ)
 
 fclean		:	clean
-				/bin/rm -rf $(NAME)
+				@/bin/rm -rf $(NAME)
 
 re			:	fclean all

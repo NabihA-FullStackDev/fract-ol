@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/02/28 05:02:14 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/11 16:28:38 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 # define WINX 800
 # define WINY 600
 
-typedef struct	s_img
+typedef struct		s_img
 {
 	void			*imgp;
 	int				*data;
 	int				s_l;
 	int				bpp;
 	int				endian;
-}				t_img;
+}					t_img;
 
-typedef struct	s_frac
+typedef struct		s_frac
 {
 	int				xmax;
 	int				ymax;
@@ -46,9 +46,9 @@ typedef struct	s_frac
 	double			zr;
 	double			zi;
 	double			tmp;
-}				t_frac;
+}					t_frac;
 
-typedef	struct	s_obj
+typedef	struct		s_obj
 {
 	t_vertex		**map;
 	t_img			img;
@@ -65,42 +65,41 @@ typedef	struct	s_obj
 	void			(*f_init)(t_frac*);
 	void			(*f_draw)(struct s_obj*, t_frac*);
 	int				mult;
-}				t_obj;
+}					t_obj;
 
-typedef struct	s_win
+typedef struct		s_win
 {
-	void		*mlxp;
-	void		*winp;
-	t_img		simg;
-	t_obj		*obj;
-	char		*info;
-}				t_win;
+	void			*mlxp;
+	void			*winp;
+	t_img			simg;
+	t_obj			*obj;
+	char			*info;
+}					t_win;
 
 unsigned int	find_color(int i, int max);
 unsigned int	find_color_bud(int i);
 void			color_to_pix(t_img *i, int x, int y, int color);
-void			*init_struct_obj(t_obj *o/* , void (*f)(t_obj*, t_vertex**, int, int) */);
+void			*init_struct_obj(t_obj *o);
 void			init_struct_win(t_win *w);
 void			init_struct_img(t_win *w, t_img *img);
 void			free_mapping(t_vertex **map, int i, int flg);
 void			init_angle_n_trans(t_angle *a, t_trans *t);
 void			init_mat_position(t_obj *o);
 
-void		calc_crcizrzi(double x, double y, t_frac *f);
-void		calc_crcizrzi_bud(double x, double y, t_frac *f);
-double		calc_cr(int x, t_frac *f);
-double		calc_ci(int y, t_frac *f);
-void		init_mandel(t_frac *f);
-void		init_julia(t_frac *f);
-void		init_buddha(t_frac *f);
-int			check_exist(t_frac *f);
-void		calc_iteration(t_frac *f);
-void		calc_iteration_multibrot(t_frac *f1, double pow);
-void		fill_map(t_obj *o, int x, int y, int color);
+void			calc_crcizrzi(double x, double y, t_frac *f);
+void			calc_crcizrzi_bud(double x, double y, t_frac *f);
+double			calc_cr(int x, t_frac *f);
+double			calc_ci(int y, t_frac *f);
+void			init_mandel(t_frac *f);
+void			init_julia(t_frac *f);
+void			init_buddha(t_frac *f);
+int				check_exist(t_frac *f);
+void			calc_iteration(t_frac *f);
+void			calc_iteration_multibrot(t_frac *f1, double pow);
+void			fill_map(t_obj *o, int x, int y, int color);
 
-//void			tabvrtx_to_img(t_obj *o, t_vertex **vtab, t_img *img);
-void			mandelbrot(t_obj *o, t_frac *f);//a supprimer certainement
 void			julia(t_obj *o, t_frac *f);
 void			multibrot(t_obj *o, t_frac *f);
+void			mandelbrot(t_obj *o, t_frac *f);
 
 #endif

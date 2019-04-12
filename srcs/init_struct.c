@@ -6,14 +6,14 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:18:59 by naali             #+#    #+#             */
-/*   Updated: 2019/02/28 04:22:13 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/10 15:52:22 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "mlx.h"
-#include "includes/t_struct.h"
-#include "includes/fractol.h"
+#include "t_struct.h"
+#include "fractol.h"
 
 void		init_struct_win(t_win *w)
 {
