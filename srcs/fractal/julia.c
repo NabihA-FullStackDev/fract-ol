@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 00:28:45 by naali             #+#    #+#             */
-/*   Updated: 2019/02/28 05:00:37 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/13 16:23:27 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void			julia(t_obj *o, t_frac *f)
 	t_vertex		tmpc;
 	unsigned int	i;
 
-	tmp.x = 0;
+	tmp.x = -WINX;
 	tmpc.x = 0;
 	while (tmpc.x < WINX)
 	{
-		tmp.y = 0;
+		tmp.y = -WINY;
 		tmpc = mult_vtex_by_mat(o->allmat, tmp);
 		while (tmpc.y < WINY)
 		{

@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/04/11 16:48:50 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/13 16:22:03 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,42 @@ int				deal_with_mouse(int key, int x, int y, void *ptr)
 	return (0);
 }
 
+void			key_fleche_gd(int key, t_win *w)
+{
+	if ((key == 123 || key == 65363) && w->obj->num == 2)
+		w->obj->trans.tx += 20;
+	else if (key == 123 || key == 65363)
+	{
+		w->obj->fra.x1 -= 0.1;
+		w->obj->fra.x2 -= 0.1;
+	}
+	if ((key == 124 || key == 65361) && w->obj->num == 2)
+		w->obj->trans.tx -= 20;
+	else if (key == 124 || key == 65361)
+	{
+		w->obj->fra.x1 += 0.1;
+		w->obj->fra.x2 += 0.1;
+	}
+}
+
+void			key_fleche_hb(int key, t_win *w)
+{
+	if ((key == 125 || key == 65362) && w->obj->num == 2)
+		w->obj->trans.ty -= 20;
+	else if (key == 125 || key == 65362)
+	{
+		w->obj->fra.y1 += 0.1;//trans.tx += 20;
+		w->obj->fra.y2 += 0.1;//trans.tx += 20;
+	}
+	if ((key == 126 || key == 65364) && w->obj->num == 2)
+		w->obj->trans.ty += 20;
+	else if (key == 126 || key == 65364)
+	{
+		w->obj->fra.y1 -= 0.1;//trans.tx += 20;
+		w->obj->fra.y2 -= 0.1;//trans.tx += 20;
+	}
+}
+
 int				deal_with_keyboard(int key, void *ptr)
 {
 	t_win		*w;
@@ -102,16 +138,10 @@ int				deal_with_keyboard(int key, void *ptr)
 		mlx_destroy_window(w->mlxp, w->winp);
 		exit(0);
 	}
-	if (key == 123 || key == 65363)
-		w->obj->trans.tx += 20;
-	if (key == 124 || key == 65361)
-		w->obj->trans.tx -= 20;
-	if (key == 125 || key == 65362)
-		w->obj->trans.ty -= 20;
-	if (key == 126 || key == 65364)
-		w->obj->trans.ty += 20;
+	key_fleche_gd(key, w);
+	key_fleche_hb(key, w);
 	if (key == 69 || key == 65451)
-		w->obj->mult += 1;
+		w->obj->mult += (w->obj->mult < 10) ? 1 : 0;
 	if (key == 78 || key == 65453)
 		w->obj->mult -= (w->obj->mult > 3) ? 1 : 0;
 	refresh_screen(w, w->obj);
@@ -152,27 +182,26 @@ int				main(int ac, char **av)
 {
 	t_win		w;
 	t_obj		obj;
-	int			fractal;
 
 	if (ac != 2)
 		print_error_usage();
-	if ((fractal = ft_atoi(av[1])) == 1)
+	if ((obj.num = ft_atoi(av[1])) == 1)
 	{
 		obj.f_init = &init_mandel;
 		obj.f_draw = &mandelbrot;
 	}
-	else if (fractal == 2)
+	else if (obj.num == 2)
 	{
 		obj.f_init = &init_julia;
 		obj.f_draw = &julia;
 	}
-	else if (fractal == 3)
+	else if (obj.num == 3)
 	{
 		obj.f_init = &init_mandel;
 		obj.f_draw = &multibrot;
 	}
 	else
 		print_error_usage();
-	init_init(&w, &obj, fractal);
+	init_init(&w, &obj, obj.num);
 	return (EXIT_ON_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:16:13 by naali             #+#    #+#             */
-/*   Updated: 2019/04/11 16:28:38 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/13 16:17:44 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef	struct		s_obj
 	void			(*f_init)(t_frac*);
 	void			(*f_draw)(struct s_obj*, t_frac*);
 	int				mult;
+	int				num;
 }					t_obj;
 
 typedef struct		s_win

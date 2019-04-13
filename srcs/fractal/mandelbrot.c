@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 04:57:15 by naali             #+#    #+#             */
-/*   Updated: 2019/02/28 05:00:45 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/13 15:51:33 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void			mandelbrot(t_obj *o, t_frac *f)
 	t_vertex		tmpc;
 	unsigned int	i;
 
-	tmp.x = 0;
-	tmpc.x = 0;
+	tmp.x = -1 * fabs(((f->x2 - f->x1) * f->zoom));//0;
+	tmpc.x = -1 * fabs(((f->y2 - f->y1) * f->zoom));//0;
 	f->xmax = fabs(((f->x2 - f->x1) * f->zoom));
 	f->ymax = fabs(((f->y2 - f->y1) * f->zoom));
 	while (tmp.x < WINX && tmpc.x < f->xmax)
 	{
-		tmp.y = 0;
+		tmp.y = /*-1 * fabs(((f->y2 - f->y1) * f->zoom));*/0;
 		tmpc = mult_vtex_by_mat(o->allmat, tmp);
 		f->cr = calc_cr(tmp.x, f);
 		while (tmp.y < WINY && tmpc.y < f->ymax)
