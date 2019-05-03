@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 13:08:32 by naali             #+#    #+#             */
-/*   Updated: 2019/04/15 11:44:55 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/21 16:19:13 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ static void		init_init(t_win *w, t_obj *o, int fractal)
 		print_info(w, w->obj);
 		mlx_mouse_hook(w->winp, deal_with_mouse, w);
 		if (fractal == 2)
-		{
 			mlx_loop_hook(w->mlxp, get_move, w);
-		}
 		mlx_hook(w->winp, 2, 1L << 0, deal_with_keyboard, w);
 		mlx_loop(w->mlxp);
 	}

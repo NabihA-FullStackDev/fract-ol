@@ -6,7 +6,7 @@
 #    By: naali <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/07 14:27:18 by naali             #+#    #+#              #
-#    Updated: 2019/04/15 09:55:45 by naali            ###   ########.fr        #
+#    Updated: 2019/04/21 15:59:46 by naali            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -51,12 +51,16 @@ LIBPATH		=	./libft
 
 LDFLAGS		=	-L$(LIBPATH)
 
-LFLAGS		=	-lmlx \
-				-lft
+LFLAGS		=	-lmlx	\
+				-lm		\
+				-lft	\
+				-lXext	\
+				-lX11
 
 LDLIBS		=	$(LDFLAGS) $(LFLAGS)
 
-FFLAGS 		=	-framework OpenGL -framework Appkit
+FFLAGS 		=
+#-framework OpenGL -framework Appkit
 
 $(OBJ_PATH)/%.o:	%.c
 			@mkdir $(OBJ_PATH) 2> /dev/null || true

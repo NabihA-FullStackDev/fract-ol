@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 04:57:15 by naali             #+#    #+#             */
-/*   Updated: 2019/04/15 14:39:41 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/22 15:09:11 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void		init_var_mandel(t_vertex *tmp, t_vertex *tmpc, t_frac *f)
 {
 	f->xmax = fabs(((f->x2 - f->x1) * f->zoom));
 	f->ymax = fabs(((f->y2 - f->y1) * f->zoom));
-	tmp->x = -(f->xmax) / 2;
-	tmpc->x = -(f->xmax) / 2;
+	tmp->x = f->x1 * f->zoom;
+	tmpc->x = f->x1 * f->zoom;
 }
 
 void			mandelbrot(t_obj *o, t_frac *f)
@@ -32,21 +32,22 @@ void			mandelbrot(t_obj *o, t_frac *f)
 	unsigned int	i;
 
 	init_var_mandel(&tmp, &tmpc, f);
-	while (tmpc.x < f->xmax)
+	while (tmpc.x < WINX)
 	{
-		tmp.y = -(f->ymax) / 2;
+		tmp.y = f->y1 * f->zoom;
 		tmpc = mult_vtex_by_mat(o->allmat, tmp);
-		f->cr = calc_cr(tmp.x, f);
-		while (tmpc.y < f->ymax)
+		f->cr = calc_cr(tmp.x - (double)(WINX / 2), f);
+		while (tmpc.y < WINY)
 		{
 			i = 0;
-			f->ci = calc_ci(tmp.y, f);
+			f->ci = calc_ci(tmp.y - (double)(WINY / 2), f);
 			while (check_exist(f) && i < f->itmax)
 			{
 				calc_iteration(f);
 				i++;
 			}
 			tmpc = mult_vtex_by_mat(o->allmat, tmp);
+			tmpc = mult_vtex_by_mat(o->center_mat, tmpc);
 			color_to_pix(&(o->img), tmpc.x, tmpc.y, find_color(i, f, 12));
 			tmp.y++;
 		}

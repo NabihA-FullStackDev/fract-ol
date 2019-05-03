@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:06:18 by naali             #+#    #+#             */
-/*   Updated: 2019/04/15 14:40:59 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/22 13:48:59 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ unsigned int	find_color(int i, t_frac *f, int div)
 
 void			color_to_pix(t_img *i, int x, int y, int color)
 {
-	if (((y * WINX) + x > 0) &&\
-		(((y * WINX) + x < WINX * WINY) &&\
-		((y * WINX + x) / WINX == y)))
+	if (((y * WINX) + x > 0) \
+		&& (((y * WINX) + x < WINX * WINY) \
+		&& (((y * WINX) + x) / WINX == y)))
 		i->data[(y * WINX) + x] = color;
 }

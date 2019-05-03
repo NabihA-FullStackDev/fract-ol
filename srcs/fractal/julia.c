@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 00:28:45 by naali             #+#    #+#             */
-/*   Updated: 2019/04/15 14:40:01 by naali            ###   ########.fr       */
+/*   Updated: 2019/04/22 14:50:10 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 static void		init_var_julia(t_vertex *tmp, t_vertex *tmpc, t_frac *f)
 {
-	tmp->x = 0;
-	tmpc->x = 0;
+	tmp->x = (f->x1 * f->zoom);//-WINX / 2;//0;
+	tmpc->x = (f->x1 * f->zoom);//-WINX / 2;//0;
 	init_xymax(f);
 }
 
@@ -29,11 +29,11 @@ void			julia(t_obj *o, t_frac *f)
 	unsigned int	i;
 
 	init_var_julia(&tmp, &tmpc, f);
-	while (tmpc.x < f->xmax || tmpc.x < WINX)
+	while (/* tmpc.x < f->xmax ||  */tmpc.x < WINX)
 	{
-		tmp.y = 0;
+		tmp.y = (f->y1 * f->zoom);//0;
 		tmpc = mult_vtex_by_mat(o->allmat, tmp);
-		while (tmpc.y < f->ymax || tmpc.y < WINY)
+		while (/* tmpc.y < (f->ymax / 2) ||  */tmpc.y < WINY)
 		{
 			i = 0;
 			calc_crcizrzi((tmp.x - (WINX / 2)), (tmp.y - (WINY / 2)), f);
